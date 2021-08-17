@@ -19,21 +19,31 @@ namespace RipsBigun
         private GameObject _gunShot;
         [SerializeField]
         private float _shootDelay = .5f;
-        private float _lastShootTime;
+        [SerializeField]
+        private float _hurtDelay = .5f;
+        private float _lastShootTime = 0f;
 
         private float _runBoundary = .7f;
         private bool _isGrounded = false;
+        private bool _hurt = false;
+        private Transform _transform;
 
         private void Start()
         {
+            _transform = transform;
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
             _rb = GetComponent<Rigidbody>();
-            _lastShootTime = Time.time;
         }
 
         void Update()
         {
+            if (_hurt)
+            {
+                _spriteRenderer.enabled = !_spriteRenderer.enabled;
+                return;
+            }
+
             if (!_isGrounded)
             {
                 _animator.SetBool("jump", true);
@@ -73,7 +83,8 @@ namespace RipsBigun
             {
                 _animator.SetBool("run", false);
                 _animator.SetBool("walk", true);
-            }else
+            }
+            else
             {
                 _animator.SetBool("run", false);
                 _animator.SetBool("walk", true);
@@ -97,7 +108,7 @@ namespace RipsBigun
                 _animator.SetBool("shoot", true);
                 if (_gunShot != null && _lastShootTime < (Time.time + _shootDelay))
                 {
-                    Instantiate(_gunShot, transform);
+                    Instantiate(_gunShot, _transform);
                     _lastShootTime = Time.time;
                 }
             }
@@ -107,12 +118,12 @@ namespace RipsBigun
             }
 
             // boundaries
-            if (transform.localPosition.z > 0 && move.z > 0)
+            if (_transform.localPosition.z > 0 && move.z > 0)
             {
                 move.z = 0;
             }
 
-            if (transform.localPosition.z < -1.5 && move.z < 0)
+            if (_transform.localPosition.z < -1.5 && move.z < 0)
             {
                 move.z = 0;
             }
@@ -137,6 +148,39 @@ namespace RipsBigun
             {
                 _isGrounded = false;
             }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.layer == 7)
+            {
+                if (_hurt)
+                {
+                    return;
+                }
+
+                // get hit and have some recoil
+                Transform otherBody = other.GetComponent<Transform>();
+                float hitSide = Mathf.Sign(otherBody.position.x - _transform.position.x);
+                _rb.velocity = new Vector3(-hitSide, _rb.velocity.y, _rb.velocity.z);
+
+                StartCoroutine("HandleHurt");
+            }
+        }
+
+        IEnumerator HandleHurt()
+        {
+            _hurt = true;
+            _animator.SetBool("hurt", true);
+            _animator.SetBool("jump", false);
+            _animator.SetBool("shoot", false);
+            _animator.SetBool("run", false);
+            _animator.SetBool("walk", false);
+
+            yield return new WaitForSeconds(_hurtDelay);
+            _hurt = false;
+            _spriteRenderer.enabled = true;
+            _animator.SetBool("hurt", false);
         }
     }
 

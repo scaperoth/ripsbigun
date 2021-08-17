@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1005035475560389964}
   - component: {fileID: 1584084014584799422}
   - component: {fileID: 1424245805}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: drone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,10 +146,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a670aa533b7a49069bc48f0fcd67c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _droneMoveSpeed: 1.5
   _floatSpeed: 3
   _floatMagnitude: 0.05
   _gravityModifier: 1
   _maxZBounds: 0
   _minZBounds: -1.5
-  _turningTime: 1
+  _turningTime: 0.3
   _player: {fileID: 0}
