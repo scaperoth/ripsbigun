@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 namespace RipsBigun
 {
     public class ParallaxEffect : MonoBehaviour

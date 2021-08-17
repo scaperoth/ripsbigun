@@ -1,25 +1,28 @@
 using UnityEngine;
 using Cinemachine;
 
-/// <summary>
-/// An add-on module for Cinemachine Virtual Camera that locks the camera's Y co-ordinate
-/// </summary>
-[SaveDuringPlay]
-[AddComponentMenu("")] // Hide in menu
-public class LockCameraZ : CinemachineExtension
+namespace RipsBigun
 {
-    [Tooltip("Lock the camera's Z position to this value")]
-    public float m_ZPosition = 10;
-
-    protected override void PostPipelineStageCallback(
-        CinemachineVirtualCameraBase vcam,
-        CinemachineCore.Stage stage, ref CameraState state, float deltaTime)
+    /// <summary>
+    /// An add-on module for Cinemachine Virtual Camera that locks the camera's Y co-ordinate
+    /// </summary>
+    [SaveDuringPlay]
+    [AddComponentMenu("")] // Hide in menu
+    public class LockCameraZ : CinemachineExtension
     {
-        if (stage == CinemachineCore.Stage.Body)
+        [Tooltip("Lock the camera's Z position to this value")]
+        public float m_ZPosition = 10;
+
+        protected override void PostPipelineStageCallback(
+            CinemachineVirtualCameraBase vcam,
+            CinemachineCore.Stage stage, ref CameraState state, float deltaTime)
         {
-            var pos = state.RawPosition;
-            pos.z = m_ZPosition;
-            state.RawPosition = pos;
+            if (stage == CinemachineCore.Stage.Body)
+            {
+                var pos = state.RawPosition;
+                pos.z = m_ZPosition;
+                state.RawPosition = pos;
+            }
         }
     }
 }
