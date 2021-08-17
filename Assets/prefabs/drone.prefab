@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2566157010422761420}
   - component: {fileID: 2566157010422761421}
   - component: {fileID: 2566157010422761422}
-  - component: {fileID: 1005035475560389964}
   - component: {fileID: 1584084014584799422}
   - component: {fileID: 1424245805}
+  - component: {fileID: 9129390436989597570}
   m_Layer: 7
   m_Name: drone
   m_TagString: Untagged
@@ -105,19 +105,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!135 &1005035475560389964
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2566157010422761423}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.245
-  m_Center: {x: 0.025000006, y: -0.014999993, z: 0}
 --- !u!54 &1584084014584799422
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -154,3 +141,17 @@ MonoBehaviour:
   _minZBounds: -1.5
   _turningTime: 0.3
   _player: {fileID: 0}
+--- !u!136 &9129390436989597570
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2566157010422761423}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.18
+  m_Height: 0.46429566
+  m_Direction: 1
+  m_Center: {x: 0.025000006, y: -0.024284318, z: 0}

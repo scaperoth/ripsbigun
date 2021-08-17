@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace RipsBigun
@@ -13,6 +14,7 @@ namespace RipsBigun
         private int _direction = 1;
         private SpriteRenderer _spriteRenderer;
         private SpriteRenderer _parentRenderer;
+        private Animator _animator;
 
         // Start is called before the first frame update
         void Awake()
@@ -21,6 +23,7 @@ namespace RipsBigun
             _transform = transform;
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _parentRenderer = _transform.parent.gameObject.GetComponent<SpriteRenderer>();
+            _animator = GetComponent<Animator>();
             Init(_parentRenderer.flipX);
         }
 
@@ -55,6 +58,22 @@ namespace RipsBigun
                 _spriteRenderer.flipX = flip;
             }
             _transform.parent = null;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject.layer == 7)
+            {
+                StartCoroutine("HandleHit");
+            }
+        }
+
+        IEnumerator HandleHit()
+        {
+            _shotVelocity = 0;
+            _animator.SetBool("hit", true);
+            yield return new WaitForSeconds(1f);
+            Destroy(gameObject);
         }
     }
 
