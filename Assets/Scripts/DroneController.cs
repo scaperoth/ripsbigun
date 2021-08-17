@@ -48,13 +48,18 @@ public class DroneController : MonoBehaviour
         // initial settings for character:
         // gravity, movement, etc.
         ApplyGravity();
-        Vector3 newPosition = FLoat();
+        FLoat();
 
-        Behavior(newPosition);
+        Behavior();
     }
 
-    void Behavior(Vector3 currentPos)
+    /// <summary>
+    /// perform this enemy's behavior
+    /// </summary>
+    /// <param name="currentPos"></param>
+    void Behavior()
     {
+        Vector3 currentPos = _transform.position;
         float posX = currentPos.x;
         Vector3 playerPos = _player.transform.position;
 
@@ -122,10 +127,13 @@ public class DroneController : MonoBehaviour
     /// float character using sine wave and
     /// the transform position
     /// </summary>
-    Vector3 FLoat()
+    void FLoat()
     {
-        // float
-        return _transform.position + (transform.up * Mathf.Sin(Time.time * _floatSpeed) * _floatMagnitude * Time.deltaTime);
+        if (_grounded)
+        {
+            // float
+            _rb.velocity = (transform.up * Mathf.Sin(Time.time * _floatSpeed) * _floatMagnitude);
+        }
     }
 
 
