@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace RipsBigun
@@ -33,8 +34,10 @@ namespace RipsBigun
         SpriteRenderer _spriteRenderer;
 
         // Start is called before the first frame update
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+
             _transform = transform;
             _rb = GetComponent<Rigidbody>();
             _animator = GetComponent<Animator>();
@@ -148,6 +151,25 @@ namespace RipsBigun
             {
                 _grounded = true;
             }
+            else if (other.gameObject.layer == 8)
+            {
+                PlayerWeapon weapon = other.GetComponent<PlayerWeapon>();
+                if (weapon != null && OnTakeDamage != null)
+                {
+                    float damage = weapon.GiveDamageAmount;
+                    OnTakeDamage.Invoke(damage / _startingHealth);
+                    _health -= damage;
+
+                    StartCoroutine("HandleHurtAnimation");
+                }
+            }
+        }
+
+        IEnumerator HandleHurtAnimation()
+        {
+            _spriteRenderer.material.color = Color.red;
+            yield return new WaitForSeconds(.1f);
+            _spriteRenderer.material.color = Color.white;
         }
 
         /// <summary>

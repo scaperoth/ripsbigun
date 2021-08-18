@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2566157010422761420}
+  - component: {fileID: 1424245805}
   - component: {fileID: 2566157010422761421}
   - component: {fileID: 2566157010422761422}
   - component: {fileID: 1584084014584799422}
-  - component: {fileID: 1424245805}
   - component: {fileID: 9129390436989597570}
   m_Layer: 7
   m_Name: drone
@@ -29,12 +29,50 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2566157010422761423}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.65, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 819907041629389039}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1424245805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2566157010422761423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a670aa533b7a49069bc48f0fcd67c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startingHealth: 100
+  _giveDamageAmount: 10
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6641962822312552604}
+        m_TargetAssemblyTypeName: RipsBigun.HealthController, Assembly-CSharp
+        m_MethodName: UpdateHealth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _droneMoveSpeed: 1.5
+  _floatSpeed: 3
+  _floatMagnitude: 0.05
+  _gravityModifier: 1
+  _maxZBounds: 0
+  _minZBounds: -1.5
+  _turningTime: 0.3
+  _player: {fileID: 0}
 --- !u!212 &2566157010422761421
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -121,26 +159,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &1424245805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2566157010422761423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a670aa533b7a49069bc48f0fcd67c2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _droneMoveSpeed: 1.5
-  _floatSpeed: 3
-  _floatMagnitude: 0.05
-  _gravityModifier: 1
-  _maxZBounds: 0
-  _minZBounds: -1.5
-  _turningTime: 0.3
-  _player: {fileID: 0}
 --- !u!136 &9129390436989597570
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -155,3 +173,80 @@ CapsuleCollider:
   m_Height: 0.46429566
   m_Direction: 1
   m_Center: {x: 0.025000006, y: -0.024284318, z: 0}
+--- !u!1001 &2566072314847410802
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2566157010422761420}
+    m_Modifications:
+    - target: {fileID: 2953341217193654941, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953341217193654941, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953341217193654941, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953341217193654941, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953341217193654941, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953341217193654941, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953341217193654941, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953341217193654941, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953341217193654941, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953341217193654941, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953341217193654941, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953341217193654941, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665327305250295315, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+      propertyPath: m_Name
+      value: EnemyHealth
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+--- !u!4 &819907041629389039 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2953341217193654941, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+  m_PrefabInstance: {fileID: 2566072314847410802}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6641962822312552604 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9200986889324843758, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
+  m_PrefabInstance: {fileID: 2566072314847410802}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50de9db3bdd94493ea50e06dc4f583b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

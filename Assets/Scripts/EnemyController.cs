@@ -1,19 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RipsBigun
 {
     public class EnemyController : MonoBehaviour
     {
         [SerializeField]
-        float _giveDamageAmount = 10f;
+        protected float _startingHealth = 100f;
+        protected float _health;
+
+        [SerializeField]
+        protected float _giveDamageAmount = 10f;
+        [SerializeField]
+        protected UnityEvent<float> OnTakeDamage;
+
         public float GiveDamageAmount
         {
             get
             {
                 return _giveDamageAmount;
             }
+        }
+
+        protected virtual void Start()
+        {
+            _health = _startingHealth;
         }
     }
 

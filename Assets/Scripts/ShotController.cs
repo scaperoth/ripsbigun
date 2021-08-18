@@ -3,12 +3,15 @@ using UnityEngine;
 
 namespace RipsBigun
 {
-    public class ShotController : MonoBehaviour
+    public class ShotController : PlayerWeapon
     {
         [SerializeField]
         private float _shotVelocity = 5f;
         [SerializeField]
         private float _lifeSpan = 5f;
+        [SerializeField]
+        private float _damage = 10f;
+
         private float _spawnTime;
         private Transform _transform;
         private int _direction = 1;
