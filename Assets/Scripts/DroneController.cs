@@ -21,12 +21,15 @@ namespace RipsBigun
         float _turningTime = .3f;
         [SerializeField]
         GameObject _player;
+        [SerializeField]
+        GameObject _healthBar;
 
         bool _grounded = false;
         bool _turning = false;
         float _lastTurnTime = 0f;
         Vector3 _currentTarget;
         bool _targetSet = false;
+        bool _isDead = false;
 
         Transform _transform;
         Rigidbody _rb;
@@ -56,12 +59,22 @@ namespace RipsBigun
             Behavior();
         }
 
+        private void OnDisable()
+        {
+            Destroy(gameObject);
+        }
+
         /// <summary>
         /// perform this enemy's behavior
         /// </summary>
         /// <param name="currentPos"></param>
         void Behavior()
         {
+            if (_isDead)
+            {
+                return;
+            }
+
             Vector3 currentPos = _transform.position;
             float posX = currentPos.x;
             Vector3 playerPos = _player.transform.position;
@@ -81,12 +94,12 @@ namespace RipsBigun
             {
                 if (posX < playerPos.x)
                 {
-                    _currentTarget = playerPos + (Vector3.right * 2f);
+                    _currentTarget = playerPos + (Vector3.right * 1.5f);
                     _spriteRenderer.flipX = true;
                 }
                 else
                 {
-                    _currentTarget = playerPos + (Vector3.left * 2f);
+                    _currentTarget = playerPos + (Vector3.left * 1.5f);
                     _spriteRenderer.flipX = false;
                 }
 
@@ -139,11 +152,6 @@ namespace RipsBigun
             }
         }
 
-
-        /// <summary>
-        /// trigger enter
-        /// </summary>
-        /// <param name="other"></param>
         void OnTriggerEnter(Collider other)
         {
             // if you hit the floor plane, you're grounded
@@ -160,22 +168,18 @@ namespace RipsBigun
                     OnTakeDamage.Invoke(damage / _startingHealth);
                     _health -= damage;
 
-                    StartCoroutine("HandleHurtAnimation");
+                    if (Mathf.Approximately(_health, 0f))
+                    {
+                        HandleDeath();
+                    }
+                    else
+                    {
+                        StartCoroutine("HandleHurtAnimation");
+                    }
                 }
             }
         }
 
-        IEnumerator HandleHurtAnimation()
-        {
-            _spriteRenderer.material.color = Color.red;
-            yield return new WaitForSeconds(.1f);
-            _spriteRenderer.material.color = Color.white;
-        }
-
-        /// <summary>
-        /// trigger exit
-        /// </summary>
-        /// <param name="other"></param>
         void OnTriggerExit(Collider other)
         {
             // if you leave the floor plane, you're not grounded
@@ -183,6 +187,21 @@ namespace RipsBigun
             {
                 _grounded = false;
             }
+        }
+
+        void HandleDeath()
+        {
+            _animator.SetBool("dead", true);
+            _isDead = true;
+            GetComponent<CapsuleCollider>().enabled = false;
+            Destroy(_healthBar);
+        }
+
+        IEnumerator HandleHurtAnimation()
+        {
+            _spriteRenderer.material.color = Color.red;
+            yield return new WaitForSeconds(.1f);
+            _spriteRenderer.material.color = Color.white;
         }
     }
 

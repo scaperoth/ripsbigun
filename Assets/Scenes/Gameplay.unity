@@ -796,7 +796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3326152885631486129, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.7
+      value: -1.65
       objectReference: {fileID: 0}
     - target: {fileID: 3326152885631486129, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1794,10 +1794,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2566157010422761421, guid: 81a9533b2963c4ffb82a12a09ad635c1, type: 3}
-      propertyPath: m_SortingOrder
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 2566157010422761423, guid: 81a9533b2963c4ffb82a12a09ad635c1, type: 3}
       propertyPath: m_Name
       value: drone
@@ -1811,34 +1807,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5983216621541541664, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
-      propertyPath: m_SortingOrder
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5983216621541541666, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
       propertyPath: m_Name
       value: Rip
       objectReference: {fileID: 0}
     - target: {fileID: 5983216621541541669, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
-      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5983216621541541669, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
       propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1036672759}
-    - target: {fileID: 5983216621541541669, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
-      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UpdateHealth
-      objectReference: {fileID: 0}
-    - target: {fileID: 5983216621541541669, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
-      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: RipsBigun.HealthController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5983216621541541669, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
-      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 5983216621541541671, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
       propertyPath: m_RootOrder
       value: 3
