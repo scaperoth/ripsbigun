@@ -834,25 +834,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4167159495042396583, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
-      propertyPath: m_SortingOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5182384065597832817, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
-      propertyPath: m_SortingOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5880805943231720574, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
-      propertyPath: m_SortingOrder
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 6760440113567099658, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
       propertyPath: m_Name
       value: PlayerHealth
-      objectReference: {fileID: 0}
-    - target: {fileID: 8781181915657846559, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
-      propertyPath: m_SortingOrder
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
@@ -1810,6 +1794,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2566157010422761421, guid: 81a9533b2963c4ffb82a12a09ad635c1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2566157010422761423, guid: 81a9533b2963c4ffb82a12a09ad635c1, type: 3}
       propertyPath: m_Name
       value: drone
@@ -1823,6 +1811,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5983216621541541664, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5983216621541541666, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
       propertyPath: m_Name
       value: Rip
