@@ -16,7 +16,7 @@ namespace RipsBigun
         [SerializeField]
         private float jumpHeight = 2.0f;
         [SerializeField]
-        private GameObject _gunShot;
+        private PooledObject _gunShot;
         [SerializeField]
         private float _shootDelay = .5f;
         [SerializeField]
@@ -92,19 +92,37 @@ namespace RipsBigun
 
         void HandleShoot()
         {
+
             //Changes the height position of the player..
             if (Input.GetButtonDown("Fire1"))
             {
                 _animator.SetBool("shoot", true);
-                if (_gunShot != null && _lastShootTime < (Time.time + _shootDelay))
-                {
-                    Instantiate(_gunShot, _transform);
-                    _lastShootTime = Time.time;
-                }
             }
             else if (Input.GetButtonUp("Fire1"))
             {
                 _animator.SetBool("shoot", false);
+            }
+
+            if (_lastShootTime + _shootDelay > Time.time)
+            {
+                return;
+            }
+
+            if (_animator.GetBool("shoot") && _gunShot != null)
+            {
+                Debug.Log("SPAWNING!");
+
+                _lastShootTime = Time.time;
+                Vector3 gunPos = _gunShot.transform.localPosition;
+                if (_animator.GetBool("run"))
+                {
+                    gunPos += new Vector3(.1f, -.05f, 0f);
+                }
+                Vector3 shotPosition = _transform.localPosition + gunPos;
+
+                PooledObject instance = Pool.Instance.Spawn(_gunShot, shotPosition, Quaternion.Euler(0f, 0f, 0f));
+                instance.As<ShotController>().Init(_spriteRenderer.flipX);
+
             }
         }
 

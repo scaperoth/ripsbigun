@@ -12,30 +12,31 @@ namespace RipsBigun
         [SerializeField]
         private float _damage = 10f;
 
-        private float _spawnTime;
+        private float _spawnTime = 0f;
         private Transform _transform;
         private int _direction = 1;
         private SpriteRenderer _spriteRenderer;
-        private SpriteRenderer _parentRenderer;
         private Animator _animator;
+        PooledObject _pooledObject;
+        private Transform _startTransform;
 
         // Start is called before the first frame update
         void Awake()
         {
-            _spawnTime = Time.time;
             _transform = transform;
+            _startTransform = _transform;
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _parentRenderer = _transform.parent.gameObject.GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
-            Init(_parentRenderer.flipX);
+            _pooledObject = GetComponent<PooledObject>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (Time.time - _spawnTime > _lifeSpan)
+            if (_spawnTime + _lifeSpan < Time.time || _spriteRenderer.enabled == false)
             {
-                Destroy(gameObject);
+                _pooledObject.Finish();
+                _spriteRenderer.enabled = true;
             }
             else
             {
@@ -45,11 +46,12 @@ namespace RipsBigun
 
         public void Init(bool flip)
         {
+            _spawnTime = Time.time;
+            _transform.position = _startTransform.position;
             if (flip)
             {
                 _direction = -1;
-                Vector3 localPos = _transform.localPosition;
-                _transform.localPosition = new Vector3(localPos.x * _direction, localPos.y, localPos.z);
+                _transform.localPosition += Vector3.left * .8f;
             }
             else
             {
@@ -60,23 +62,20 @@ namespace RipsBigun
             {
                 _spriteRenderer.flipX = flip;
             }
-            _transform.parent = null;
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if(other.gameObject.layer == 7)
             {
-                StartCoroutine("HandleHit");
+                HandleHit();
             }
         }
 
-        IEnumerator HandleHit()
+        void HandleHit()
         {
-            _shotVelocity = 0;
+            _direction = 0;
             _animator.SetBool("hit", true);
-            yield return new WaitForSeconds(1f);
-            Destroy(gameObject);
         }
     }
 

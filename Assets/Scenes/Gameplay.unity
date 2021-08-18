@@ -980,6 +980,52 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1012465693
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1012465695}
+  - component: {fileID: 1012465694}
+  m_Layer: 0
+  m_Name: Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1012465694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012465693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 578ed640f4e314fc292425bd96af3f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectPools:
+  - amount: 20
+    objectToPool: {fileID: 6736116004118340592, guid: ad1d2bcc59ac5483e972eb79c3a12ec3, type: 3}
+--- !u!4 &1012465695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012465693}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.045, y: 0.003000006, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1036672759 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3084993865034902744, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
@@ -1798,6 +1844,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: drone
       objectReference: {fileID: 0}
+    - target: {fileID: 2566157010422761423, guid: 81a9533b2963c4ffb82a12a09ad635c1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81a9533b2963c4ffb82a12a09ad635c1, type: 3}
 --- !u!1001 &5983216621089390187
@@ -1810,6 +1860,14 @@ PrefabInstance:
     - target: {fileID: 5983216621541541666, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
       propertyPath: m_Name
       value: Rip
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983216621541541669, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
+      propertyPath: _gunShot
+      value: 
+      objectReference: {fileID: 6736116004118340592, guid: ad1d2bcc59ac5483e972eb79c3a12ec3, type: 3}
+    - target: {fileID: 5983216621541541669, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
+      propertyPath: _shootDelay
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5983216621541541669, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
       propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Target
