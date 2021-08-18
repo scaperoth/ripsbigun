@@ -1,10 +1,15 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RipsBigun
 {
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField]
+        private float _startingHealth = 100f;
+        private float _health;
+
         private SpriteRenderer _spriteRenderer;
         private Animator _animator;
         private Rigidbody _rb;
@@ -27,12 +32,16 @@ namespace RipsBigun
         private bool _hurt = false;
         private Transform _transform;
 
+        [SerializeField]
+        UnityEvent<float> OnTakeDamage;
+
         private void Start()
         {
             _transform = transform;
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
             _rb = GetComponent<Rigidbody>();
+            _health = _startingHealth;
         }
 
         void Update()
@@ -163,11 +172,19 @@ namespace RipsBigun
                 float hitSide = Mathf.Sign(otherBody.position.x - _transform.position.x);
                 _rb.velocity = new Vector3(-hitSide, _rb.velocity.y, _rb.velocity.z);
 
-                StartCoroutine("HandleHurt");
+                EnemyController enemyController = other.GetComponent<EnemyController>();
+                if (enemyController != null && OnTakeDamage != null)
+                {
+                    float damage = enemyController.GiveDamageAmount;
+                    OnTakeDamage.Invoke(damage/_startingHealth);
+                    _health -= damage;
+                }
+
+                StartCoroutine("HandleHurtAnimation");
             }
         }
 
-        IEnumerator HandleHurt()
+        IEnumerator HandleHurtAnimation()
         {
             _hurt = true;
             _animator.SetBool("hurt", true);

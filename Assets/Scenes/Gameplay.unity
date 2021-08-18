@@ -739,6 +739,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1631879404}
+  - {fileID: 1036672760}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -782,6 +783,79 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ZPosition: -10
+--- !u!1001 &906480097
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 636112991}
+    m_Modifications:
+    - target: {fileID: 3326152885631486129, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326152885631486129, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326152885631486129, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326152885631486129, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326152885631486129, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326152885631486129, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326152885631486129, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326152885631486129, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326152885631486129, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326152885631486129, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326152885631486129, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4167159495042396583, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182384065597832817, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5880805943231720574, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760440113567099658, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_Name
+      value: PlayerHealth
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781181915657846559, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
 --- !u!1 &935464955
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,6 +996,22 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1036672759 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3084993865034902744, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+  m_PrefabInstance: {fileID: 906480097}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50de9db3bdd94493ea50e06dc4f583b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1036672760 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3326152885631486129, guid: e4770ab4d4b2844eaaa49a57eb1cb65e, type: 3}
+  m_PrefabInstance: {fileID: 906480097}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1180831936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,17 +1823,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5983216621541541664, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5983216621541541666, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
       propertyPath: m_Name
       value: Rip
       objectReference: {fileID: 0}
     - target: {fileID: 5983216621541541669, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
-      propertyPath: _hurtDelay
-      value: 0.5
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983216621541541669, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1036672759}
+    - target: {fileID: 5983216621541541669, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateHealth
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983216621541541669, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RipsBigun.HealthController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983216621541541669, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5983216621541541671, guid: a9d09487c77ea4fdaab6c89ecb104dd0, type: 3}
       propertyPath: m_RootOrder

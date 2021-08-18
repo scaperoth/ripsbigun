@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace RipsBigun
 {
-    public class DroneController : MonoBehaviour
+    public class DroneController : EnemyController
     {
         [SerializeField]
         float _droneMoveSpeed = 1.5f;

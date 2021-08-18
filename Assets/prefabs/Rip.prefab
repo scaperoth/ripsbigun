@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5983216621541541671}
+  - component: {fileID: 5983216621541541669}
   - component: {fileID: 5983216621541541664}
   - component: {fileID: 5983216621541541665}
   - component: {fileID: 5983216621541541668}
   - component: {fileID: 5983216621541541670}
-  - component: {fileID: 5983216621541541669}
   m_Layer: 3
   m_Name: Rip
   m_TagString: Untagged
@@ -35,6 +35,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5983216621541541669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5983216621541541666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f48727a02c0854da18de40863689fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startingHealth: 100
+  _playerSpeed: 2
+  _playerVeritcalSpeed: 10
+  jumpHeight: 3
+  _gunShot: {fileID: 8871433094145244743, guid: ad1d2bcc59ac5483e972eb79c3a12ec3, type: 3}
+  _shootDelay: 1
+  _hurtDelay: 0.5
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!212 &5983216621541541664
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -135,20 +169,3 @@ CapsuleCollider:
   m_Height: 0.47
   m_Direction: 1
   m_Center: {x: 0.029999997, y: -0.10000001, z: 0}
---- !u!114 &5983216621541541669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5983216621541541666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f48727a02c0854da18de40863689fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerSpeed: 2
-  _playerVeritcalSpeed: 10
-  jumpHeight: 3
-  _gunShot: {fileID: 8871433094145244743, guid: ad1d2bcc59ac5483e972eb79c3a12ec3, type: 3}
-  _shootDelay: 1
