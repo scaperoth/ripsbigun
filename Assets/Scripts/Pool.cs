@@ -85,7 +85,6 @@ namespace RipsBigun
         // Gets an object from the pool and returns it after setting position, rotation, and active.
         public PooledObject Spawn(PooledObject obj, Vector3 position, Quaternion rotation)
         {
-            Debug.Log("SPAWNING2!");
             var clone = GetNextObject(obj);
             clone.transform.position = position;
             clone.transform.rotation = rotation;

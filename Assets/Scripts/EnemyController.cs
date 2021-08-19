@@ -14,6 +14,10 @@ namespace RipsBigun
         [SerializeField]
         protected UnityEvent<float> OnTakeDamage;
 
+        public UnityEvent<EnemyController> OnDeath;
+
+        protected Transform _playerTransform;
+
         public float GiveDamageAmount
         {
             get
@@ -25,6 +29,28 @@ namespace RipsBigun
         protected virtual void Start()
         {
             _health = _startingHealth;
+
+        }
+
+        private void OnDisable()
+        {
+            if(OnDeath != null)
+            {
+                OnDeath.RemoveAllListeners();
+            }
+        }
+
+        public void SetPlayerTransform(Transform playerTransform)
+        {
+            _playerTransform = playerTransform;
+        }
+
+        protected virtual void HandleDeath()
+        {
+            if (OnDeath != null)
+            {
+                OnDeath.Invoke(this);
+            }
         }
     }
 

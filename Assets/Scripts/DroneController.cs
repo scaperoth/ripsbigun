@@ -20,8 +20,6 @@ namespace RipsBigun
         [SerializeField]
         float _turningTime = .3f;
         [SerializeField]
-        GameObject _player;
-        [SerializeField]
         GameObject _healthBar;
 
         bool _grounded = false;
@@ -35,6 +33,8 @@ namespace RipsBigun
         Rigidbody _rb;
         Animator _animator;
         SpriteRenderer _spriteRenderer;
+        PooledObject _pooledObject;
+        CapsuleCollider _collider;
 
         // Start is called before the first frame update
         protected override void Start()
@@ -45,7 +45,23 @@ namespace RipsBigun
             _rb = GetComponent<Rigidbody>();
             _animator = GetComponent<Animator>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _currentTarget = _player.transform.position;
+            _pooledObject = GetComponent<PooledObject>();
+            _collider = GetComponent<CapsuleCollider>();
+            _pooledObject.behaviour = this;
+            _currentTarget = _playerTransform.position;
+        }
+
+        private void OnDisable()
+        {
+            _animator?.SetBool("dead", false);
+            if(_spriteRenderer != null) { 
+                _spriteRenderer.enabled = true;
+            }
+            if(_collider != null)
+            {
+                _collider.enabled = true;
+            }
+            _isDead = false;
         }
 
         // Update is called once per frame
@@ -55,13 +71,12 @@ namespace RipsBigun
             // gravity, movement, etc.
             ApplyGravity();
             FLoat();
-
             Behavior();
-        }
 
-        private void OnDisable()
-        {
-            Destroy(gameObject);
+            if(_spriteRenderer.enabled == false)
+            {
+                _pooledObject.Finish();
+            }
         }
 
         /// <summary>
@@ -77,7 +92,7 @@ namespace RipsBigun
 
             Vector3 currentPos = _transform.position;
             float posX = currentPos.x;
-            Vector3 playerPos = _player.transform.position;
+            Vector3 playerPos = _playerTransform.position;
 
             if (_turning)
             {
@@ -94,12 +109,12 @@ namespace RipsBigun
             {
                 if (posX < playerPos.x)
                 {
-                    _currentTarget = playerPos + (Vector3.right * 1.5f);
+                    _currentTarget = playerPos + (Vector3.right * 2f);
                     _spriteRenderer.flipX = true;
                 }
                 else
                 {
-                    _currentTarget = playerPos + (Vector3.left * 1.5f);
+                    _currentTarget = playerPos + (Vector3.left * 2f);
                     _spriteRenderer.flipX = false;
                 }
 
@@ -189,11 +204,12 @@ namespace RipsBigun
             }
         }
 
-        void HandleDeath()
+        protected override void HandleDeath()
         {
+            base.HandleDeath();
             _animator.SetBool("dead", true);
             _isDead = true;
-            GetComponent<CapsuleCollider>().enabled = false;
+            _collider.enabled = false;
             Destroy(_healthBar);
         }
 

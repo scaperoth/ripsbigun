@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RipsBigun
 {
@@ -8,6 +9,7 @@ namespace RipsBigun
         [HideInInspector]
         public int id;
         public Action<PooledObject> Finished;
+        public UnityEvent<PooledObject> OnDespawn;
 
         // A cached component for fast-access -- avoids calls to GetComponent<>().
         public Component behaviour;
@@ -22,6 +24,11 @@ namespace RipsBigun
             if (Finished != null)
             {
                 Finished(this);
+
+                if (OnDespawn != null)
+                {
+                    OnDespawn.Invoke(this);
+                }
             }
         }
 
