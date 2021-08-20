@@ -58,15 +58,13 @@ MonoBehaviour:
   _floatMagnitude: 0.1
   _gravityModifier: 1
   _healthBar: {fileID: 6641962822312552604}
-  _gameState: {fileID: 11400000, guid: a469ae66af045432084355d54c8769e3, type: 2}
+  _score: {fileID: 11400000, guid: 30722ddd63fc7431aa8cf25e2c5e6592, type: 2}
   _rb: {fileID: 1584084014584799422}
   _animator: {fileID: 2566157010422761422}
   _spriteRenderer: {fileID: 2566157010422761421}
   _pooledObject: {fileID: 5442813756744402299}
   _collider: {fileID: 9129390436989597570}
-  _onDeath:
-    m_PersistentCalls:
-      m_Calls: []
+  _onEnemyDeath: {fileID: 11400000, guid: 90140dbda6a5f4eafb53f3efc6cff058, type: 2}
 --- !u!114 &5442813756744402299
 MonoBehaviour:
   m_ObjectHideFlags: 0

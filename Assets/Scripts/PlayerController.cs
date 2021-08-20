@@ -8,23 +8,7 @@ namespace RipsBigun
     public class PlayerController : MonoBehaviour
     {
         [SerializeField]
-        private float _startingHealth = 100f;
-        public float StartingHealth
-        {
-            get
-            {
-                return _startingHealth;
-            }
-        }
-        private float _health;
-        public float Health
-        {
-            get
-            {
-                return _health;
-            }
-        }
-
+        FloatVariable _playerHealth;
         [SerializeField]
         private float _playerSpeed = 2.0f;
         [SerializeField]
@@ -68,7 +52,6 @@ namespace RipsBigun
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
             _rb = GetComponent<Rigidbody>();
-            _health = _startingHealth;
         }
 
         void Update()
@@ -268,7 +251,7 @@ namespace RipsBigun
             if (enemyController != null)
             {
                 float damage = enemyController.GiveDamageAmount;
-                _health -= damage;
+                _playerHealth.SubtractFromValue(damage);
                 _playerHurtEvent.Raise(this);
             }
         }

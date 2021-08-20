@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace RipsBigun
 {
+    [ExecuteInEditMode]
     public sealed class HealthController : MonoBehaviour
     {
         [SerializeField]
@@ -30,21 +31,20 @@ namespace RipsBigun
             _healthBarSprite.size = new Vector2(_startingHealthbarSize, _healthBarSprite.size.y);
         }
 
-        public void UpdateHealth(float percDamage)
+        public void UpdateHealth(float ratioDamage)
         {
             if (_healthBarSprite == null)
             {
                 return;
-            }
+            } 
 
-            float sizeChange = _startingHealthbarSize * percDamage;
-            float newSize = _healthBarSprite.size.x - sizeChange;
+            float newSize = _startingHealthbarSize * ratioDamage;
             _healthBarSprite.size = new Vector2(Mathf.Clamp(newSize, 0, _startingHealthbarSize), _healthBarSprite.size.y);
         }
 
-        public void UpdateHealth(PlayerController player)
+        public void UpdateHealth(FloatVariable healthVariable)
         {
-            UpdateHealth((player.StartingHealth - player.Health) / player.StartingHealth);
+            UpdateHealth(healthVariable.Value/healthVariable.InitialValue);
         }
     }
 }

@@ -1,22 +1,33 @@
-using UnityEditor;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace RipsBigun
 {
-    [CreateAssetMenu]
+    [ExecuteInEditMode]
     public class FloatVariable : ScriptableObject
     {
         [SerializeField]
-        private int _initialValue = 0;
+        private float _initialValue = 0;
         [SerializeField]
-        private int _runtimeValue = 0;
+        private float _runtimeValue = 0;
+        [SerializeField]
+        private bool _runtimeLessThanIntial = false;
+        [SerializeField]
+        private bool _runtimeGreaterThanInitial = false;
+        [SerializeField]
+        private int _minValue = 0;
         [SerializeField]
         private int _maxValue = 9999999;
 
-        public UnityEvent<int> OnValueChanged;
+        public float InitialValue
+        {
+            get
+            {
+                return _initialValue;
+            }
+        }
 
-        public int Value
+        public float Value
         {
             get
             {
@@ -32,6 +43,21 @@ namespace RipsBigun
             }
         }
 
+        private List<FloatVariableEventListener> listeners =
+            new List<FloatVariableEventListener>();
+
+        void Raise()
+        {
+            for (int i = listeners.Count - 1; i >= 0; i--)
+                listeners[i].OnEventRaised(this);
+        }
+
+        public void RegisterListener(FloatVariableEventListener listener)
+        { listeners.Add(listener); }
+
+        public void UnregisterListener(FloatVariableEventListener listener)
+        { listeners.Remove(listener); }
+
         public void OnAfterDeserialize()
         {
             _runtimeValue = _initialValue;
@@ -41,38 +67,43 @@ namespace RipsBigun
 
         private void OnValidate()
         {
-            _initialValue = Mathf.Clamp(_initialValue, 0, _maxValue);
-            _runtimeValue = Mathf.Clamp(_runtimeValue, 0, _maxValue);
+            _initialValue = Mathf.Clamp(_initialValue, _minValue, _maxValue);
+            _runtimeValue = Mathf.Clamp(_runtimeValue, _minValue, _maxValue);
 
-            if (_runtimeValue < _initialValue)
+            if (_runtimeLessThanIntial && _runtimeValue > _initialValue)
             {
                 _runtimeValue = _initialValue;
             }
-            OnValueChanged?.Invoke(_runtimeValue);
+
+            if (_runtimeGreaterThanInitial && _runtimeValue < _initialValue)
+            {
+                _runtimeValue = _initialValue;
+            }
+            Raise();
         }
 
 
         private void OnEnable()
         {
-            _runtimeValue = 0;
+            _runtimeValue = _initialValue;
         }
 
-        public void AddToValue(int amountToAdd)
+        public void AddToValue(float amountToAdd)
         {
-            int newValue = _runtimeValue + amountToAdd;
+            float newValue = _runtimeValue + amountToAdd;
             UpdateValue(newValue);
         }
 
-        public void RemoveFromValue(int amountToSubtract)
+        public void SubtractFromValue(float amountToSubtract)
         {
-            int newValue = _runtimeValue - amountToSubtract;
+            float newValue = _runtimeValue - amountToSubtract;
             UpdateValue(newValue);
         }
 
-        public void UpdateValue(int newValue)
+        public void UpdateValue(float newValue)
         {
             _runtimeValue = Mathf.Clamp(newValue, 0, _maxValue);
-            OnValueChanged?.Invoke(_runtimeValue);
+            Raise();
         }
     }
 

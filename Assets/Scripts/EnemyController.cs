@@ -52,7 +52,7 @@ namespace RipsBigun
         protected HealthController _healthBar;
 
         [SerializeField]
-        FloatVariable _gameState;
+        FloatVariable _score;
         [SerializeField]
         protected Rigidbody _rb;
         [SerializeField]
@@ -133,6 +133,8 @@ namespace RipsBigun
             _animator?.SetBool("dead", true);
             _isDead = true;
             _collider.enabled = false;
+            _score?.AddToValue(PointValue);
+            _onEnemyDeath?.Raise(this);
         }
 
         /// <summary>
