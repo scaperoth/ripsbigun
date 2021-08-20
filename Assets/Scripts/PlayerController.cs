@@ -110,8 +110,6 @@ namespace RipsBigun
 
             if (_animator.GetBool("shoot") && _gunShot != null)
             {
-                Debug.Log("SPAWNING!");
-
                 _lastShootTime = Time.time;
                 Vector3 gunPos = _gunShot.transform.localPosition;
                 if (_animator.GetBool("run"))
@@ -122,7 +120,6 @@ namespace RipsBigun
 
                 PooledObject instance = Pool.Instance.Spawn(_gunShot, shotPosition, Quaternion.Euler(0f, 0f, 0f));
                 instance.As<ShotController>().Init(_spriteRenderer.flipX);
-
             }
         }
 

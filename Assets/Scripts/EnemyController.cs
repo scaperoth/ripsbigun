@@ -5,16 +5,18 @@ namespace RipsBigun
 {
     public class EnemyController : MonoBehaviour
     {
+        [Header("Base Class Configuration")]
         [SerializeField]
         protected float _startingHealth = 100f;
         protected float _health;
 
         [SerializeField]
         protected float _giveDamageAmount = 10f;
-        [SerializeField]
-        protected UnityEvent<float> OnTakeDamage;
 
-        public UnityEvent<EnemyController> OnDeath;
+        [Header("Enemy Class Configuration")]
+
+        private UnityEvent<EnemyController> _onDeath;
+        public UnityEvent<EnemyController> OnDeath { get { return _onDeath; } }
 
         protected Transform _playerTransform;
 
@@ -34,9 +36,9 @@ namespace RipsBigun
 
         private void OnDisable()
         {
-            if(OnDeath != null)
+            if (_onDeath != null)
             {
-                OnDeath.RemoveAllListeners();
+                _onDeath.RemoveAllListeners();
             }
         }
 
@@ -47,9 +49,9 @@ namespace RipsBigun
 
         protected virtual void HandleDeath()
         {
-            if (OnDeath != null)
+            if (_onDeath != null)
             {
-                OnDeath.Invoke(this);
+                _onDeath.Invoke(this);
             }
         }
     }

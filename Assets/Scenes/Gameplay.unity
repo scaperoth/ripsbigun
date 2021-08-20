@@ -1014,6 +1014,8 @@ MonoBehaviour:
     objectToPool: {fileID: 6736116004118340592, guid: ad1d2bcc59ac5483e972eb79c3a12ec3, type: 3}
   - amount: 5
     objectToPool: {fileID: 5442813756744402299, guid: 81a9533b2963c4ffb82a12a09ad635c1, type: 3}
+  - amount: 5
+    objectToPool: {fileID: 959115058918190541, guid: c4a4425c0b3034611bbdffadb4125f00, type: 3}
 --- !u!4 &1012465695
 Transform:
   m_ObjectHideFlags: 0
@@ -1817,8 +1819,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 520927561}
-  _enemiesToSpawn:
-  - {fileID: 5442813756744402299, guid: 81a9533b2963c4ffb82a12a09ad635c1, type: 3}
+  _maxEnemies: 3
+  _spawnRate: 3
+  _spawnableEnemies:
+  - _enemy: {fileID: 5442813756744402299, guid: 81a9533b2963c4ffb82a12a09ad635c1, type: 3}
+    _spawnRate: 0.5
+  - _enemy: {fileID: 959115058918190541, guid: c4a4425c0b3034611bbdffadb4125f00, type: 3}
+    _spawnRate: 0.1
 --- !u!4 &2127441766
 Transform:
   m_ObjectHideFlags: 0

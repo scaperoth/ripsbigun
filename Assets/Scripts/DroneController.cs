@@ -5,6 +5,7 @@ namespace RipsBigun
 {
     public class DroneController : EnemyController
     {
+        [Header("Drone Configuration")]
         [SerializeField]
         float _droneMoveSpeed = 1.5f;
         [SerializeField]
@@ -14,13 +15,9 @@ namespace RipsBigun
         [SerializeField]
         float _gravityModifier = 1f;
         [SerializeField]
-        float _maxZBounds = 0;
-        [SerializeField]
-        float _minZBounds = -1.6f;
-        [SerializeField]
         float _turningTime = .3f;
         [SerializeField]
-        GameObject _healthBar;
+        HealthController _healthBar;
 
         bool _grounded = false;
         bool _turning = false;
@@ -62,6 +59,9 @@ namespace RipsBigun
                 _collider.enabled = true;
             }
             _isDead = false;
+            _healthBar.ShowHealth(true);
+            _healthBar.ResetHealth();
+            _health = _startingHealth;
         }
 
         // Update is called once per frame
@@ -177,10 +177,10 @@ namespace RipsBigun
             else if (other.gameObject.layer == 8)
             {
                 PlayerWeapon weapon = other.GetComponent<PlayerWeapon>();
-                if (weapon != null && OnTakeDamage != null)
+                if (weapon != null && _healthBar != null)
                 {
                     float damage = weapon.GiveDamageAmount;
-                    OnTakeDamage.Invoke(damage / _startingHealth);
+                    _healthBar.UpdateHealth(damage / _startingHealth);
                     _health -= damage;
 
                     if (Mathf.Approximately(_health, 0f))
@@ -207,10 +207,10 @@ namespace RipsBigun
         protected override void HandleDeath()
         {
             base.HandleDeath();
-            _animator.SetBool("dead", true);
+            _healthBar?.ShowHealth(false);
+            _animator?.SetBool("dead", true);
             _isDead = true;
             _collider.enabled = false;
-            Destroy(_healthBar);
         }
 
         IEnumerator HandleHurtAnimation()

@@ -8,12 +8,26 @@ namespace RipsBigun
         SpriteRenderer _healthBarSprite;
         private float _startingHealthbarSize;
 
-        private void Start()
+        private void Awake()
         {
             if (_healthBarSprite != null)
             {
                 _startingHealthbarSize = _healthBarSprite.size.x;
             }
+        }
+
+        public void ShowHealth(bool active)
+        {
+            gameObject.SetActive(active);
+        }
+
+        public void ResetHealth()
+        {
+            if (_healthBarSprite == null)
+            {
+                return;
+            }
+            _healthBarSprite.size = new Vector2(_startingHealthbarSize, _healthBarSprite.size.y);
         }
 
         public void UpdateHealth(float percDamage)

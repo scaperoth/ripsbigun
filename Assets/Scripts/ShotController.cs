@@ -9,8 +9,6 @@ namespace RipsBigun
         private float _shotVelocity = 5f;
         [SerializeField]
         private float _lifeSpan = 5f;
-        [SerializeField]
-        private float _damage = 10f;
 
         private float _spawnTime = 0f;
         private Transform _transform;

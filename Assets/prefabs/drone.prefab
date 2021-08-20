@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a670aa533b7a49069bc48f0fcd67c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingHealth: 100
+  _startingHealth: 40
   _giveDamageAmount: 10
   OnTakeDamage:
     m_PersistentCalls:
@@ -66,15 +66,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
   _droneMoveSpeed: 1.5
   _floatSpeed: 3
   _floatMagnitude: 0.05
   _gravityModifier: 1
-  _maxZBounds: 0
-  _minZBounds: -1.5
   _turningTime: 0.3
-  _player: {fileID: 0}
-  _healthBar: {fileID: 7143297642534958177}
+  _healthBar: {fileID: 6641962822312552604}
 --- !u!114 &5442813756744402299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,6 +88,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  OnDespawn:
+    m_PersistentCalls:
+      m_Calls: []
   behaviour: {fileID: 1424245805}
 --- !u!212 &2566157010422761421
 SpriteRenderer:
@@ -250,11 +253,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
---- !u!1 &7143297642534958177 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4665327305250295315, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
-  m_PrefabInstance: {fileID: 2566072314847410802}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &819907041629389039 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2953341217193654941, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
@@ -265,7 +263,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9200986889324843758, guid: a8a2e5e6f51c04ca19f954521316edf9, type: 3}
   m_PrefabInstance: {fileID: 2566072314847410802}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7143297642534958177}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50de9db3bdd94493ea50e06dc4f583b7, type: 3}
