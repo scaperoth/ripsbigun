@@ -150,19 +150,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startingHealth: 100
+  _invincible: 1
   _giveDamageAmount: 10
-  OnTakeDamage:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls: []
   _moveSpeed: 2
+  _floatSpeed: 1
+  _floatMagnitude: 1
   _gravityModifier: 1
-  _maxZBounds: 0
-  _minZBounds: -1.6
-  _lifespan: 5
+  _healthBar: {fileID: 0}
+  _rb: {fileID: 6148038537829853971}
+  _animator: {fileID: 265220687282863262}
   _spriteRenderer: {fileID: 8932823037137988416}
+  _pooledObject: {fileID: 959115058918190541}
+  _collider: {fileID: 119021302570280224}
+  _accelerator: 0.01
+  _lifespan: 5
 --- !u!114 &959115058918190541
 MonoBehaviour:
   m_ObjectHideFlags: 0

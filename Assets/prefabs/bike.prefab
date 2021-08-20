@@ -9,14 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2566157010422761420}
-  - component: {fileID: 1424245805}
+  - component: {fileID: 4382009348319033567}
   - component: {fileID: 5442813756744402299}
   - component: {fileID: 2566157010422761421}
   - component: {fileID: 2566157010422761422}
   - component: {fileID: 1584084014584799422}
   - component: {fileID: 9129390436989597570}
   m_Layer: 7
-  m_Name: drone
+  m_Name: bike
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +37,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1424245805
+--- !u!114 &4382009348319033567
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,15 +46,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2566157010422761423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a670aa533b7a49069bc48f0fcd67c2f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b2b640a595f94df4b5fe0ff90f7e5bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingHealth: 40
+  _startingHealth: 60
   _invincible: 0
   _giveDamageAmount: 10
   _moveSpeed: 1.5
-  _floatSpeed: 3
-  _floatMagnitude: 0.05
+  _floatSpeed: 10
+  _floatMagnitude: 0.1
   _gravityModifier: 1
   _healthBar: {fileID: 6641962822312552604}
   _rb: {fileID: 1584084014584799422}
@@ -62,7 +62,6 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 2566157010422761421}
   _pooledObject: {fileID: 5442813756744402299}
   _collider: {fileID: 9129390436989597570}
-  _turningTime: 0.3
 --- !u!114 &5442813756744402299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,7 +78,7 @@ MonoBehaviour:
   OnDespawn:
     m_PersistentCalls:
       m_Calls: []
-  behaviour: {fileID: 1424245805}
+  behaviour: {fileID: 4382009348319033567}
 --- !u!212 &2566157010422761421
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -120,7 +119,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 4354691916670521898, guid: b30de58b7a0564b968d967a464a89820, type: 3}
+  m_Sprite: {fileID: -170659887911526950, guid: b30de58b7a0564b968d967a464a89820, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -141,7 +140,7 @@ Animator:
   m_GameObject: {fileID: 2566157010422761423}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ee2d04c57466c4176962119987e58a46, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6c3c31f6564cd4475a0aadafd32b375c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -176,10 +175,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.11938107
-  m_Height: 0.40899545
-  m_Direction: 1
-  m_Center: {x: -0.0056523383, y: -0.010534227, z: 0.0019354969}
+  m_Radius: 0.18777934
+  m_Height: 0.6988946
+  m_Direction: 0
+  m_Center: {x: -0.090872705, y: -0.055685103, z: -0.018335998}
 --- !u!1001 &2566072314847410802
 PrefabInstance:
   m_ObjectHideFlags: 0

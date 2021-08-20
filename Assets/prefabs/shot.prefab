@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6736116004118340592}
   - component: {fileID: 8871433094145244760}
   - component: {fileID: 8871433094145244761}
-  - component: {fileID: 1066741219448590109}
+  - component: {fileID: 3885783696658056664}
   m_Layer: 8
   m_Name: shot
   m_TagString: Untagged
@@ -50,7 +50,6 @@ MonoBehaviour:
   _giveDamageAmount: 10
   _shotVelocity: 3
   _lifeSpan: 2
-  _damage: 10
 --- !u!114 &6736116004118340592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,6 +63,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  OnDespawn:
+    m_PersistentCalls:
+      m_Calls: []
   behaviour: {fileID: 4624082676274141402}
 --- !u!212 &8871433094145244760
 SpriteRenderer:
@@ -135,16 +137,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &1066741219448590109
-BoxCollider:
+--- !u!136 &3885783696658056664
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8871433094145244743}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.14, y: 0.15752862, z: 0.3914918}
-  m_Center: {x: -0.0050000027, y: -0.043764286, z: -0.020399943}
+  m_Radius: 0.1
+  m_Height: 0.21846488
+  m_Direction: 1
+  m_Center: {x: -0.01654055, y: 0.004616216, z: 0}

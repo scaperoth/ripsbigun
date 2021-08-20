@@ -83,7 +83,7 @@ namespace RipsBigun
             int currentIter = 0;
             while (enemyToSpawn == null)
             {
-                if(currentIter > maxIter)
+                if (currentIter > maxIter)
                 {
                     enemyToSpawn = _spawnableEnemies[0].Enemy;
                     break;
@@ -93,7 +93,7 @@ namespace RipsBigun
                 SpawnableEnemy spawnableEnemy = _spawnableEnemies[spawnIndex];
 
                 float spawnChance = UnityEngine.Random.Range(0f, 1f);
-                if(spawnableEnemy.SpawnRate > spawnChance)
+                if (spawnableEnemy.SpawnRate > spawnChance)
                 {
                     enemyToSpawn = spawnableEnemy.Enemy;
                     break;
