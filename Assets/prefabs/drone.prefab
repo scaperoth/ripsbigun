@@ -52,16 +52,33 @@ MonoBehaviour:
   _startingHealth: 40
   _invincible: 0
   _giveDamageAmount: 10
+  _pointValue: 100
   _moveSpeed: 2
   _floatSpeed: 3
   _floatMagnitude: 0.05
   _gravityModifier: 1
   _healthBar: {fileID: 6641962822312552604}
+  _gameState: {fileID: 11400000, guid: a469ae66af045432084355d54c8769e3, type: 2}
   _rb: {fileID: 1584084014584799422}
   _animator: {fileID: 2566157010422761422}
   _spriteRenderer: {fileID: 2566157010422761421}
   _pooledObject: {fileID: 5442813756744402299}
   _collider: {fileID: 9129390436989597570}
+  _onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _turningTime: 0.3
 --- !u!114 &5442813756744402299
 MonoBehaviour:

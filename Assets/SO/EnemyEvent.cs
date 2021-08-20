@@ -1,0 +1,24 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace RipsBigun
+{
+	[CreateAssetMenu]
+	public class EnemyEvent : ScriptableObject
+	{
+		private List<EnemyEventListener> listeners =
+			new List<EnemyEventListener>();
+
+		public void Raise(EnemyController enemy)
+		{
+			for (int i = listeners.Count - 1; i >= 0; i--)
+				listeners[i].OnEventRaised(enemy);
+		}
+
+		public void RegisterListener(EnemyEventListener listener)
+		{ listeners.Add(listener); }
+
+		public void UnregisterListener(EnemyEventListener listener)
+		{ listeners.Remove(listener); }
+	}
+}

@@ -25,6 +25,15 @@ namespace RipsBigun
         protected bool _invincible = false;
         [SerializeField]
         protected float _giveDamageAmount = 10f;
+        [SerializeField]
+        protected int _pointValue = 100;
+        public int PointValue 
+        {
+            get
+            {
+                return _pointValue;
+            }
+        }
 
         // serialized movement parameters
         [SerializeField]
@@ -43,6 +52,8 @@ namespace RipsBigun
         protected HealthController _healthBar;
 
         [SerializeField]
+        FloatVariable _gameState;
+        [SerializeField]
         protected Rigidbody _rb;
         [SerializeField]
         protected Animator _animator;
@@ -52,9 +63,8 @@ namespace RipsBigun
         protected PooledObject _pooledObject;
         [SerializeField]
         protected Collider _collider;
-
-        private UnityEvent<EnemyController> _onDeath;
-        public UnityEvent<EnemyController> OnDeath { get { return _onDeath; } }
+        [SerializeField]
+        EnemyEvent _onEnemyDeath; 
 
         protected Vector3 _currentTarget = Vector3.zero;
         protected bool _targetSet = false;
@@ -96,7 +106,6 @@ namespace RipsBigun
 
         protected virtual void OnDisable()
         {
-            _onDeath?.RemoveAllListeners();
             _animator?.SetBool("dead", false);
             if (_spriteRenderer != null)
             {
@@ -120,7 +129,6 @@ namespace RipsBigun
 
         protected virtual void HandleDeath()
         {
-            _onDeath?.Invoke(this);
             _healthBar?.ShowHealth(false);
             _animator?.SetBool("dead", true);
             _isDead = true;
@@ -197,6 +205,7 @@ namespace RipsBigun
             if (Mathf.Approximately(_health, 0f))
             {
                 HandleDeath();
+                _onEnemyDeath?.Raise(this);
             }
             else
             {

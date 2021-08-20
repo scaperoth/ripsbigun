@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using Cinemachine;
 
 namespace RipsBigun
 {
@@ -8,7 +9,22 @@ namespace RipsBigun
     {
         [SerializeField]
         private float _startingHealth = 100f;
+        public float StartingHealth
+        {
+            get
+            {
+                return _startingHealth;
+            }
+        }
         private float _health;
+        public float Health
+        {
+            get
+            {
+                return _health;
+            }
+        }
+
         [SerializeField]
         private float _playerSpeed = 2.0f;
         [SerializeField]
@@ -21,12 +37,20 @@ namespace RipsBigun
         private float _shootDelay = .5f;
         [SerializeField]
         private float _hurtDelay = .5f;
+        public float HurtDelay
+        {
+            get
+            {
+                return _hurtDelay;
+            }
+        }
+
         [SerializeField]
         private float _minZBoundary = -1.5f;
         [SerializeField]
         private float _maxZBoundary = 0f;
         [SerializeField]
-        UnityEvent<float> OnTakeDamage;
+        PlayerEvent _playerHurtEvent;
 
         private SpriteRenderer _spriteRenderer;
         private Animator _animator;
@@ -227,17 +251,25 @@ namespace RipsBigun
             // get hit and have some recoil
             Transform otherBody = other.GetComponent<Transform>();
             float hitSide = Mathf.Sign(otherBody.position.x - _transform.position.x);
+            if (hitSide < 0)
+            {
+                _spriteRenderer.flipX = true;
+            }
+            else
+            {
+                _spriteRenderer.flipX = false;
+            }
             _rb.velocity = new Vector3(-hitSide, _rb.velocity.y, _rb.velocity.z);
         }
 
         void TakeDamageFromOther(GameObject other)
         {
             EnemyController enemyController = other.GetComponent<EnemyController>();
-            if (enemyController != null && OnTakeDamage != null)
+            if (enemyController != null)
             {
                 float damage = enemyController.GiveDamageAmount;
-                OnTakeDamage.Invoke(damage / _startingHealth);
                 _health -= damage;
+                _playerHurtEvent.Raise(this);
             }
         }
 
@@ -250,15 +282,8 @@ namespace RipsBigun
             _animator.SetBool("run", false);
             _animator.SetBool("walk", false);
 
-            int n = 10;
-            for (int i = 0; i < n;  i++) {
-                _spriteRenderer.enabled = true;
-                yield return new WaitForSeconds(_hurtDelay/ (n * 2f));
-                _spriteRenderer.enabled = false;
-                yield return new WaitForSeconds(_hurtDelay / (n * 2f));
-                _spriteRenderer.enabled = true;
-            }
-            //yield return new WaitForSeconds(_hurtDelay);
+            yield return new WaitForSeconds(_hurtDelay);
+
             _hurt = false;
             _spriteRenderer.enabled = true;
             _animator.SetBool("hurt", false);

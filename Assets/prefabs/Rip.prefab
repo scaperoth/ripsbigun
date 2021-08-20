@@ -51,9 +51,9 @@ MonoBehaviour:
   _playerSpeed: 2
   _playerVeritcalSpeed: 10
   jumpHeight: 3
-  _gunShot: {fileID: 0}
-  _shootDelay: 1
-  _hurtDelay: 0.5
+  _gunShot: {fileID: 6736116004118340592, guid: ad1d2bcc59ac5483e972eb79c3a12ec3, type: 3}
+  _shootDelay: 0.3
+  _hurtDelay: 0.3
   _minZBoundary: -1.5
   _maxZBoundary: 0
   OnTakeDamage:
@@ -71,6 +71,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _playerHurtEvent: {fileID: 11400000, guid: cd462a375c938415e957efcac14763a8, type: 2}
 --- !u!212 &5983216621541541664
 SpriteRenderer:
   m_ObjectHideFlags: 0
