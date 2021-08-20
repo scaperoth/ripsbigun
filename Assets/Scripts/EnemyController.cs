@@ -6,6 +6,17 @@ namespace RipsBigun
 {
     public class EnemyController : MonoBehaviour
     {
+        protected struct Boundary
+        {
+            public float min { get; private set; }
+            public float max { get; private set; }
+            public Boundary(float min, float max)
+            {
+                this.min = min;
+                this.max = max;
+            }
+        }
+
         [Header("Base Class Configuration")]
         // serialized health parameters
         [SerializeField]
@@ -24,6 +35,10 @@ namespace RipsBigun
         protected float _floatMagnitude = 1f;
         [SerializeField]
         protected float _gravityModifier = 1f;
+        [SerializeField]
+        protected Boundary _zBounds = new Boundary(-1.5f, 0f);
+        [SerializeField]
+        protected Boundary _yBounds = new Boundary(-.5f, .5f);
         [SerializeField]
         protected HealthController _healthBar;
 
@@ -64,10 +79,19 @@ namespace RipsBigun
             _health = _startingHealth;
             _transform = transform;
             _cameraTransform = Camera.main.transform;
-            if(_pooledObject.behaviour == null)
+            if (_pooledObject.behaviour == null)
             {
                 _pooledObject.behaviour = this;
             }
+        }
+
+        protected virtual void Update()
+        {
+            _transform.localPosition = new Vector3(
+                _transform.localPosition.x,
+                Mathf.Clamp(_transform.localPosition.y, _yBounds.min, _yBounds.max),
+                Mathf.Clamp(_transform.localPosition.z, _zBounds.min, _zBounds.max)
+            );
         }
 
         protected virtual void OnDisable()
@@ -82,6 +106,7 @@ namespace RipsBigun
             {
                 _collider.enabled = true;
             }
+            _grounded = false;
             _isDead = false;
             _healthBar?.ShowHealth(true);
             _healthBar?.ResetHealth();
@@ -147,7 +172,8 @@ namespace RipsBigun
             {
                 _grounded = true;
             }
-            else if (other.gameObject.layer == 8)
+
+            if (other.gameObject.layer == 8)
             {
                 if (_invincible)
                 {

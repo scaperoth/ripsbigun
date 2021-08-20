@@ -12,7 +12,7 @@ namespace RipsBigun
         float _lastTurnTime = 0f;
 
         // Update is called once per frame
-        void Update()
+        protected override void Update()
         {
             // initial settings for character:
             // gravity, movement, etc.
@@ -24,6 +24,8 @@ namespace RipsBigun
             {
                 _pooledObject.Finish();
             }
+
+            base.Update();
         }
 
         /// <summary>

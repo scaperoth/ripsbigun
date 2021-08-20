@@ -51,7 +51,6 @@ namespace RipsBigun
         {
             if (_hurt)
             {
-                _spriteRenderer.enabled = !_spriteRenderer.enabled;
                 return;
             }
 
@@ -251,7 +250,15 @@ namespace RipsBigun
             _animator.SetBool("run", false);
             _animator.SetBool("walk", false);
 
-            yield return new WaitForSeconds(_hurtDelay);
+            int n = 10;
+            for (int i = 0; i < n;  i++) {
+                _spriteRenderer.enabled = true;
+                yield return new WaitForSeconds(_hurtDelay/ (n * 2f));
+                _spriteRenderer.enabled = false;
+                yield return new WaitForSeconds(_hurtDelay / (n * 2f));
+                _spriteRenderer.enabled = true;
+            }
+            //yield return new WaitForSeconds(_hurtDelay);
             _hurt = false;
             _spriteRenderer.enabled = true;
             _animator.SetBool("hurt", false);

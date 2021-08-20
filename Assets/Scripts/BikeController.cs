@@ -6,7 +6,7 @@ namespace RipsBigun
     public class BikeController : EnemyController
     {
         // Update is called once per frame
-        void Update()
+        protected override void Update()
         {
             // initial settings for character:
             // gravity, movement, etc.
@@ -18,6 +18,7 @@ namespace RipsBigun
             {
                 _pooledObject.Finish();
             }
+            base.Update();
         }
 
         /// <summary>
@@ -57,7 +58,6 @@ namespace RipsBigun
             if (distanceToTarget > .6f)
             {
                 Vector3 move = Vector3.MoveTowards(currentPos, _currentTarget, _moveSpeed * Time.deltaTime);
-                Debug.Log($"TARGET MOVING TOWARDS: {move}");
                 _transform.position = new Vector3(move.x, currentPos.y, move.z);
             }
             else if (distanceToTarget < .6f)

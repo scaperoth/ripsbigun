@@ -71,7 +71,7 @@ namespace RipsBigun
 
             return new Vector3(
                 _cameraTransform.position.x + (boundsMultiplier * _cameraBounds),
-                _player.transform.position.y,
+                _cameraTransform.position.y,
                 UnityEngine.Random.Range(-1.5f, 0f)
             );
         }
