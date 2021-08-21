@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace RipsBigun
 {
-    [ExecuteInEditMode]
     public sealed class HealthController : MonoBehaviour
     {
         [SerializeField]

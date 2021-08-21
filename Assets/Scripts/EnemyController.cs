@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace RipsBigun
 {
@@ -24,10 +23,12 @@ namespace RipsBigun
         [SerializeField]
         protected bool _invincible = false;
         [SerializeField]
+        protected bool _useGravity = true;
+        [SerializeField]
         protected float _giveDamageAmount = 10f;
         [SerializeField]
         protected int _pointValue = 100;
-        public int PointValue 
+        public int PointValue
         {
             get
             {
@@ -43,7 +44,7 @@ namespace RipsBigun
         [SerializeField]
         protected float _floatMagnitude = 1f;
         [SerializeField]
-        protected float _gravityModifier = 1f;
+        protected float _gravityValue = -9.8f;
         [SerializeField]
         protected Boundary _zBounds = new Boundary(-1.5f, 0f);
         [SerializeField]
@@ -54,8 +55,6 @@ namespace RipsBigun
         [SerializeField]
         FloatVariable _score;
         [SerializeField]
-        protected Rigidbody _rb;
-        [SerializeField]
         protected Animator _animator;
         [SerializeField]
         protected SpriteRenderer _spriteRenderer;
@@ -64,17 +63,23 @@ namespace RipsBigun
         [SerializeField]
         protected Collider _collider;
         [SerializeField]
-        EnemyEvent _onEnemyDeath; 
+        EnemyEvent _onEnemyDeath;
 
         protected Vector3 _currentTarget = Vector3.zero;
         protected bool _targetSet = false;
         protected float _health;
-        protected bool _grounded = false;
+        protected bool _isGrounded = false;
         protected bool _isDead = false;
 
-        protected Transform _transform;
-        protected Transform _cameraTransform;
+        private bool _updatingPositionThisFrame = false;
+        private Vector3 _newPositionForFrame = Vector3.zero;
+        private bool _flipX = false;
+        private bool _updatingSpriteXThisFrame = false;
+
         protected Transform _playerTransform;
+        protected Transform _transform;
+        protected Transform _mainCameraTransform;
+        protected Vector3 _cachedPosition;
 
         public float GiveDamageAmount
         {
@@ -88,19 +93,43 @@ namespace RipsBigun
         {
             _health = _startingHealth;
             _transform = transform;
-            _cameraTransform = Camera.main.transform;
+            _mainCameraTransform = Camera.main.transform;
             if (_pooledObject.behaviour == null)
             {
                 _pooledObject.behaviour = this;
             }
         }
 
-        protected virtual void Update()
+        protected virtual void LateUpdate()
         {
-            _transform.localPosition = new Vector3(
-                _transform.localPosition.x,
-                Mathf.Clamp(_transform.localPosition.y, _yBounds.min, _yBounds.max),
-                Mathf.Clamp(_transform.localPosition.z, _zBounds.min, _zBounds.max)
+            if (_isDead)
+            {
+                return;
+            }
+
+            if (_updatingSpriteXThisFrame)
+            {
+                _spriteRenderer.flipX = _flipX;
+                _updatingSpriteXThisFrame = false;
+            }
+
+            if (!_updatingPositionThisFrame)
+            {
+                _newPositionForFrame = _transform.position;
+            }
+
+            if (!_isGrounded && _useGravity)
+            {
+                _newPositionForFrame += Physics.gravity * Time.deltaTime;
+            }
+
+            // make sure that the character stays within defined boundaries
+            float yBounds = Mathf.Clamp(_newPositionForFrame.y, _yBounds.min, _yBounds.max);
+
+            _transform.position = new Vector3(
+                _newPositionForFrame.x,
+                yBounds,
+                Mathf.Clamp(_newPositionForFrame.z, _zBounds.min, _zBounds.max)
             );
         }
 
@@ -115,7 +144,7 @@ namespace RipsBigun
             {
                 _collider.enabled = true;
             }
-            _grounded = false;
+            _isGrounded = false;
             _isDead = false;
             _healthBar?.ShowHealth(true);
             _healthBar?.ResetHealth();
@@ -125,6 +154,22 @@ namespace RipsBigun
         public void SetPlayerTransform(Transform playerTransform)
         {
             _playerTransform = playerTransform;
+        }
+
+        protected void MoveTowards(Vector3 currentPosition, Vector3 target, float speed)
+        {
+            Vector3 move = Vector3.MoveTowards(currentPosition, target, speed);
+            _newPositionForFrame = new Vector3(move.x, currentPosition.y, move.z);
+            if (!_updatingPositionThisFrame)
+            {
+                _updatingPositionThisFrame = true;
+            }
+        }
+
+        protected void FlipSprite(bool flipX)
+        {
+            _flipX = flipX;
+            _updatingSpriteXThisFrame = true;
         }
 
         protected virtual void HandleDeath()
@@ -137,50 +182,12 @@ namespace RipsBigun
             _onEnemyDeath?.Raise(this);
         }
 
-        /// <summary>
-        /// apply gravity when character not grounded
-        /// </summary>
-        protected void ApplyGravity()
-        {
-            if (_isDead)
-            {
-                return;
-            }
-
-            if (!_grounded)
-            {
-                _rb.velocity = new Vector3(_rb.velocity.x, -_gravityModifier, _rb.velocity.z);
-            }
-            else
-            {
-                _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
-            }
-        }
-
-        /// <summary>
-        /// float character using sine wave and
-        /// the transform position
-        /// </summary>
-        protected void FLoat()
-        {
-            if (_isDead)
-            {
-                return;
-            }
-
-            if (_grounded)
-            {
-                // float
-                _rb.velocity = (transform.up * Mathf.Sin(Time.time * _floatSpeed) * _floatMagnitude);
-            }
-        }
-
         void OnTriggerEnter(Collider other)
         {
             // if you hit the floor plane, you're grounded
             if (other.name == "FloorPlane")
             {
-                _grounded = true;
+                _isGrounded = true;
             }
 
             if (other.gameObject.layer == 8)
@@ -220,7 +227,7 @@ namespace RipsBigun
             // if you leave the floor plane, you're not grounded
             if (other.name == "FloorPlane")
             {
-                _grounded = false;
+                _isGrounded = false;
             }
         }
 

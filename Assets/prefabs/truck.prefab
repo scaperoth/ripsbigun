@@ -113,7 +113,6 @@ GameObject:
   - component: {fileID: 7303543794773225338}
   - component: {fileID: 4402411960508492338}
   - component: {fileID: 959115058918190541}
-  - component: {fileID: 6148038537829853971}
   - component: {fileID: 119021302570280224}
   m_Layer: 7
   m_Name: truck
@@ -151,17 +150,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startingHealth: 100
   _invincible: 1
+  _useGravity: 1
   _giveDamageAmount: 10
+  _pointValue: 100
   _moveSpeed: 2
   _floatSpeed: 1
   _floatMagnitude: 1
-  _gravityModifier: 1
+  _gravityValue: -9.8
   _healthBar: {fileID: 0}
-  _rb: {fileID: 6148038537829853971}
+  _score: {fileID: 0}
+  _rb: {fileID: 0}
   _animator: {fileID: 265220687282863262}
   _spriteRenderer: {fileID: 8932823037137988416}
   _pooledObject: {fileID: 959115058918190541}
   _collider: {fileID: 119021302570280224}
+  _onEnemyDeath: {fileID: 0}
   _accelerator: 0.01
   _lifespan: 5
 --- !u!114 &959115058918190541
@@ -181,22 +184,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   behaviour: {fileID: 4402411960508492338}
---- !u!54 &6148038537829853971
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7303543794773225337}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!65 &119021302570280224
 BoxCollider:
   m_ObjectHideFlags: 0

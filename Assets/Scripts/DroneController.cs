@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 namespace RipsBigun
@@ -12,12 +11,8 @@ namespace RipsBigun
         float _lastTurnTime = 0f;
 
         // Update is called once per frame
-        protected override void Update()
+        protected void Update()
         {
-            // initial settings for character:
-            // gravity, movement, etc.
-            ApplyGravity();
-            FLoat();
             Behavior();
 
             if(_spriteRenderer.enabled == false)
@@ -25,7 +20,6 @@ namespace RipsBigun
                 _pooledObject.Finish();
             }
 
-            base.Update();
         }
 
         /// <summary>
@@ -58,12 +52,12 @@ namespace RipsBigun
                 if (currentPos.x < playerPos.x)
                 {
                     _currentTarget = playerPos + (Vector3.right * 2f);
-                    _spriteRenderer.flipX = true;
+                    FlipSprite(true);;
                 }
                 else
                 {
                     _currentTarget = playerPos + (Vector3.left * 2f);
-                    _spriteRenderer.flipX = false;
+                    FlipSprite(false); ;
                 }
 
                 _targetSet = true;
@@ -75,8 +69,7 @@ namespace RipsBigun
             float distanceToTarget = Vector3.Distance(currentPos, _currentTarget);
             if (distanceToTarget > .6f)
             {
-                Vector3 move = Vector3.MoveTowards(currentPos, _currentTarget, _moveSpeed * Time.deltaTime);
-                _transform.position = new Vector3(move.x, currentPos.y, move.z);
+                MoveTowards(currentPos, _currentTarget, _moveSpeed * Time.deltaTime);
             }
             else if (distanceToTarget < .6f)
             {

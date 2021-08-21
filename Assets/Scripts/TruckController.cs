@@ -26,11 +26,8 @@ namespace RipsBigun
         }
 
         // Update is called once per frame
-        protected override void Update()
+        protected void Update()
         {
-            // initial settings for character:
-            // gravity, movement, etc.
-            ApplyGravity();
             Behavior();
 
             if (_lifeStartTime + (_lifespan * .7) < Time.time)
@@ -42,7 +39,6 @@ namespace RipsBigun
             {
                 _pooledObject.Finish();
             }
-            base.Update();
         }
 
         /// <summary>
@@ -55,15 +51,14 @@ namespace RipsBigun
 
             if (_currentTarget == Vector3.zero)
             {
-                _currentTarget = new Vector3(_cameraTransform.position.x - 50, currentPos.y, currentPos.z);
-                if (currentPos.x < _cameraTransform.position.x)
+                _currentTarget = new Vector3(_mainCameraTransform.position.x - 50, currentPos.y, currentPos.z);
+                if (currentPos.x < _mainCameraTransform.position.x)
                 {
-                    _spriteRenderer.flipX = true;
+                    FlipSprite(true);
                     _currentTarget.x += 100;
                 }
             }
-            Vector3 move = Vector3.MoveTowards(currentPos, _currentTarget, _moveSpeed * Time.deltaTime);
-            _transform.position = new Vector3(move.x, move.y, move.z);
+            MoveTowards(currentPos, _currentTarget, _moveSpeed * Time.deltaTime);
         }
     }
 }
