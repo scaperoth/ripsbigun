@@ -72,7 +72,7 @@ namespace RipsBigun
 
             return new Vector3(
                 _mainCameraTransform.position.x + (boundsMultiplier * _cameraBounds),
-                _mainCameraTransform.position.y,
+                _levelBounds.Min.y,
                 UnityEngine.Random.Range(_levelBounds.Min.z, _levelBounds.Max.z)
             );
         }
@@ -108,7 +108,6 @@ namespace RipsBigun
 
         void SpawnEnemy(PooledObject enemy, Vector3 position)
         {
-            Debug.Log($"SPAWING ENEMY AT {position}");
             var instance = Pool.Instance.Spawn(enemy, position, Quaternion.Euler(0f, 0f, 0f));
             instance.As<EnemyController>().SetPlayerTransform(_player.transform);
             _spawnedEnemies.Add(instance);

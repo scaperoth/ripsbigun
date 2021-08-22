@@ -22,12 +22,6 @@ namespace RipsBigun
 
         }
 
-        private void OnEnable()
-        {
-            Debug.Log($"MY CURRENT POSITION IS: {transform.position}");
-            Debug.Log($"POOLED OBJECT POSITION IS: {_pooledObject.CachedTransform.position}");
-        }
-
         /// <summary>
         /// perform this enemy's behavior
         /// </summary>

@@ -68,7 +68,7 @@ namespace RipsBigun
                 _directionSet = true;
             }
             _currentTarget = currentPos + (_direction * 3);
-            MoveTowards(currentPos, _currentTarget, _moveSpeed * Time.deltaTime);
+            MoveTowards(currentPos, _currentTarget, _adjustedMoveSpeed * Time.deltaTime);
         }
     }
 }

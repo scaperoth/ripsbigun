@@ -134,6 +134,7 @@ namespace RipsBigun
             );
         }
 
+
         protected virtual void OnDisable()
         {
             _animator?.SetBool("dead", false);
@@ -150,6 +151,7 @@ namespace RipsBigun
             _healthBar?.ShowHealth(true);
             _healthBar?.ResetHealth();
             _health = _startingHealth;
+            _updatingPositionThisFrame = false;
         }
 
         public void SetPlayerTransform(Transform playerTransform)
