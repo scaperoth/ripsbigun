@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 namespace RipsBigun
 {
@@ -16,23 +14,21 @@ namespace RipsBigun
         FloatVariable _score;
         [SerializeField]
         ScoreController _scoreController;
+        [SerializeField]
+        string _mainMenuScene = "Home";
 
         bool _interactable = false;
 
         private void Update()
         {
-            if (_interactable && Input.GetKey("escape"))
+            if (_interactable && Input.GetKey(KeyCode.Escape))
             {
-#if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-#else
-                Application.Quit();
-#endif
+                SceneManager.LoadScene(_mainMenuScene);
                 return;
             }
-
             if (_interactable && AnyButtonPressed())
             {
+                _score.UpdateValue(_score.InitialValue);
                 Scene activeScene = SceneManager.GetActiveScene();
                 SceneManager.LoadScene(activeScene.name);
             }
@@ -53,7 +49,7 @@ namespace RipsBigun
 
         public void FadeToBlack()
         {
-            _scoreController.UpdateScore(_score, false);
+            _scoreController.UpdateScoreText(_score, false);
             StartCoroutine(FadeRoutine(true));
         }
 
