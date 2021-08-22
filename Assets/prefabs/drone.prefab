@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1424245805}
   - component: {fileID: 5442813756744402299}
   - component: {fileID: 9129390436989597570}
+  - component: {fileID: 254340937795865077}
   m_Layer: 7
   m_Name: drone
   m_TagString: Untagged
@@ -95,6 +96,34 @@ CapsuleCollider:
   m_Height: 0.40899545
   m_Direction: 1
   m_Center: {x: -0.0056523383, y: -0.010534227, z: 0.0019354969}
+--- !u!114 &254340937795865077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2566157010422761423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ecb304e53f149e5baebe37f92b2f92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: fd9d5f57fbe27411b89b8ca881579d5e, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1424245805}
+        m_TargetAssemblyTypeName: RipsBigun.EnemyController, Assembly-CSharp
+        m_MethodName: HandleGameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7582428443849947681
 GameObject:
   m_ObjectHideFlags: 0

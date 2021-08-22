@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2566157010422761421}
   - component: {fileID: 2566157010422761422}
   - component: {fileID: 9129390436989597570}
+  - component: {fileID: 8425131556053606425}
   m_Layer: 7
   m_Name: bike
   m_TagString: Untagged
@@ -165,6 +166,34 @@ CapsuleCollider:
   m_Height: 0.6988946
   m_Direction: 0
   m_Center: {x: -0.090872705, y: -0.055685103, z: -0.018335998}
+--- !u!114 &8425131556053606425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2566157010422761423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ecb304e53f149e5baebe37f92b2f92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: fd9d5f57fbe27411b89b8ca881579d5e, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4382009348319033567}
+        m_TargetAssemblyTypeName: RipsBigun.EnemyController, Assembly-CSharp
+        m_MethodName: HandleGameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &2566072314847410802
 PrefabInstance:
   m_ObjectHideFlags: 0

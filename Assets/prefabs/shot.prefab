@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _giveDamageAmount: 10
-  _shotVelocity: 2.5
+  _shotVelocity: 3.5
   _lifeSpan: 1
 --- !u!114 &6736116004118340592
 MonoBehaviour:

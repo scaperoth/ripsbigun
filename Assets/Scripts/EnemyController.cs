@@ -70,6 +70,7 @@ namespace RipsBigun
         protected float _health;
         protected bool _isGrounded = false;
         protected bool _isDead = false;
+        protected bool _gameOver = false;
 
         private bool _updatingPositionThisFrame = false;
         private Vector3 _newPositionForFrame = Vector3.zero;
@@ -102,7 +103,7 @@ namespace RipsBigun
 
         protected virtual void LateUpdate()
         {
-            if (_isDead)
+            if (_isDead || _gameOver)
             {
                 return;
             }
@@ -210,8 +211,8 @@ namespace RipsBigun
             if (weapon != null)
             {
                 float damage = weapon.GiveDamageAmount;
-                _healthBar?.UpdateHealth(damage / _startingHealth);
                 _health -= damage;
+                _healthBar?.UpdateHealth(_health / _startingHealth);
             }
 
             if (Mathf.Approximately(_health, 0f))
@@ -223,6 +224,11 @@ namespace RipsBigun
             {
                 StartCoroutine("HandleHurtAnimation");
             }
+        }
+
+        public void HandleGameOver()
+        {
+            _gameOver = true;
         }
 
         void OnTriggerExit(Collider other)

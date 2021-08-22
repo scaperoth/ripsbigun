@@ -34,6 +34,7 @@ namespace RipsBigun
         Transform _mainCameraTransform;
         float _cameraBounds = 3f;
         float _lastSpawnTime = 0f;
+        bool _gameOver;
 
         // Start is called before the first frame update
         void Start()
@@ -118,6 +119,11 @@ namespace RipsBigun
         {
             obj.OnDespawn.RemoveAllListeners(); ;
             _spawnedEnemies.Remove(obj);
+        }
+
+        public void OnGameOver()
+        {
+            _gameOver = true;
         }
     }
 }

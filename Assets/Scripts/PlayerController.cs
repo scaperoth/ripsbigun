@@ -35,9 +35,16 @@ namespace RipsBigun
         private RestrictedVector3 _levelBounds;
         [SerializeField]
         PlayerEvent _playerHurtEvent;
+        [SerializeField]
+        PlayerEvent _playerDeathEvent;
+        [SerializeField]
+        GameEvent _gameOverEvent;
 
+        [SerializeField]
         private SpriteRenderer _spriteRenderer;
+        [SerializeField]
         private Animator _animator;
+
         private Transform _transform;
 
         private float _lastShootTime = 0f;
@@ -45,17 +52,34 @@ namespace RipsBigun
         private bool _isGrounded = false;
         private bool _hurt = false;
         private bool _jumping = false;
+        private bool _dead = false;
         private Vector3 _move;
 
         private void Start()
         {
             _transform = transform;
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            _animator = GetComponent<Animator>();
+        }
+
+        private void OnEnable()
+        {
+            _dead = false;
         }
 
         void Update()
         {
+            CheckForDeath();
+
+            if (_dead)
+            {
+                if (_transform.position.y != 0f)
+                {
+                    Vector3 centerScreen = new Vector3(_transform.position.x, 0f, _transform.position.z);
+                    _transform.position = Vector3.MoveTowards(_transform.position, centerScreen, .5f * Time.deltaTime);
+                }
+
+                return;
+            }
+
             CheckForGrounded();
 
             _move = Vector3.zero;
@@ -225,7 +249,7 @@ namespace RipsBigun
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == 7)
+            if (!_dead && other.gameObject.layer == 7)
             {
                 if (_hurt)
                 {
@@ -263,6 +287,10 @@ namespace RipsBigun
                 float damage = enemyController.GiveDamageAmount;
                 _playerHealth.SubtractFromValue(damage);
                 _playerHurtEvent.Raise(this);
+                if(_playerHealth.Value == 0)
+                {
+                    _dead = true;
+                }
             }
         }
 
@@ -271,9 +299,9 @@ namespace RipsBigun
             _hurt = true;
             _animator.SetBool("hurt", true);
             _animator.SetBool("jump", false);
-            _animator.SetBool("shoot", false);
             _animator.SetBool("run", false);
             _animator.SetBool("walk", false);
+            _animator.SetBool("shoot", false);
 
             yield return new WaitForSeconds(_hurtDelay);
 
@@ -281,6 +309,23 @@ namespace RipsBigun
             _spriteRenderer.enabled = true;
             _animator.SetBool("hurt", false);
         }
-    }
 
+        void CheckForDeath()
+        {
+            if (_dead && _playerHealth.Value == 0)
+            {
+                _spriteRenderer.sortingOrder += 2;
+                _animator.SetBool("hurt", false);
+                _animator.SetBool("jump", false);
+                _animator.SetBool("run", false);
+                _animator.SetBool("walk", false);
+                _animator.SetBool("shoot", false);
+                _animator.SetTrigger("deathTrigger");
+                _animator.SetBool("dead", true);
+                _playerDeathEvent.Raise(this);
+                _gameOverEvent.Raise();
+                _playerHealth.UpdateValue(_playerHealth.InitialValue);
+            }
+        }
+    }
 }
