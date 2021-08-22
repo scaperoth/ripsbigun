@@ -4,12 +4,25 @@ using UnityEngine.Events;
 
 namespace RipsBigun
 {
-    public class PooledObject : MonoBehaviour
+    public sealed class PooledObject : MonoBehaviour
     {
         [HideInInspector]
         public int id;
         public Action<PooledObject> Finished;
         public UnityEvent<PooledObject> OnDespawn;
+        private Transform _transform;
+
+        public Transform CachedTransform
+        {
+            get
+            {
+                if(_transform == null)
+                {
+                    _transform = transform;
+                }
+                return _transform;
+            }
+        }
 
         // A cached component for fast-access -- avoids calls to GetComponent<>().
         public Component behaviour;

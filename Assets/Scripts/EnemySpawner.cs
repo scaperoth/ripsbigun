@@ -12,7 +12,8 @@ namespace RipsBigun
         int _maxEnemies = 3;
         [SerializeField]
         float _spawnDelaySeconds = 3f;
-
+        [SerializeField]
+        RestrictedVector3 _levelBounds;
         [Serializable]
         private class SpawnableEnemy
         {
@@ -30,15 +31,15 @@ namespace RipsBigun
 
         List<PooledObject> _spawnedEnemies = new List<PooledObject>();
 
-        Transform _cameraTransform;
+        Transform _mainCameraTransform;
         float _cameraBounds = 3f;
         float _lastSpawnTime = 0f;
 
         // Start is called before the first frame update
         void Start()
         {
-            _cameraTransform = Camera.main.transform;
             _lastSpawnTime = -_spawnDelaySeconds;
+            _mainCameraTransform = Camera.main.transform;
         }
 
         // Update is called once per frame
@@ -66,13 +67,13 @@ namespace RipsBigun
             int boundsMultiplier = 1;
             if (randomChance > .5f)
             {
-                boundsMultiplier = -1;
+                boundsMultiplier = -boundsMultiplier;
             }
 
             return new Vector3(
-                _cameraTransform.position.x + (boundsMultiplier * _cameraBounds),
-                _cameraTransform.position.y,
-                UnityEngine.Random.Range(-1.5f, 0f)
+                _mainCameraTransform.position.x + (boundsMultiplier * _cameraBounds),
+                _mainCameraTransform.position.y,
+                UnityEngine.Random.Range(_levelBounds.Min.z, _levelBounds.Max.z)
             );
         }
 
@@ -107,6 +108,7 @@ namespace RipsBigun
 
         void SpawnEnemy(PooledObject enemy, Vector3 position)
         {
+            Debug.Log($"SPAWING ENEMY AT {position}");
             var instance = Pool.Instance.Spawn(enemy, position, Quaternion.Euler(0f, 0f, 0f));
             instance.As<EnemyController>().SetPlayerTransform(_player.transform);
             _spawnedEnemies.Add(instance);
@@ -115,6 +117,7 @@ namespace RipsBigun
 
         void RemoveFromSpawnList(PooledObject obj)
         {
+            obj.OnDespawn.RemoveAllListeners(); ;
             _spawnedEnemies.Remove(obj);
         }
     }

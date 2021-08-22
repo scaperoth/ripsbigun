@@ -8,21 +8,26 @@ namespace RipsBigun
         [Header("Truck Configuration")]
         [SerializeField]
         float _accelerator = .01f;
+        float _adjustedMoveSpeed;
 
         [SerializeField]
         float _lifespan = 5f;
         float _lifeStartTime = 5f;
+        Vector3 _direction = Vector3.right;
+        bool _directionSet = false;
 
         private void OnEnable()
         {
             _lifeStartTime = Time.time;
             _currentTarget = Vector3.zero;
+            _adjustedMoveSpeed = _moveSpeed;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
             _lifeStartTime = 0f;
+            _directionSet = false;
         }
 
         // Update is called once per frame
@@ -32,7 +37,7 @@ namespace RipsBigun
 
             if (_lifeStartTime + (_lifespan * .7) < Time.time)
             {
-                _moveSpeed *= (1 + _accelerator);
+                _adjustedMoveSpeed *= (1 + _accelerator);
             }
 
             if (_lifeStartTime + _lifespan < Time.time)
@@ -49,15 +54,20 @@ namespace RipsBigun
         {
             Vector3 currentPos = _transform.position;
 
-            if (_currentTarget == Vector3.zero)
+            if (!_directionSet )
             {
-                _currentTarget = new Vector3(_mainCameraTransform.position.x - 50, currentPos.y, currentPos.z);
-                if (currentPos.x < _mainCameraTransform.position.x)
-                {
+                if (currentPos.x < _mainCameraTransform.position.x) {
                     FlipSprite(true);
-                    _currentTarget.x += 100;
+                    _direction = Vector3.right;
                 }
+                else
+                {
+                    FlipSprite(false);
+                    _direction = Vector3.left;
+                }
+                _directionSet = true;
             }
+            _currentTarget = currentPos + (_direction * 3);
             MoveTowards(currentPos, _currentTarget, _moveSpeed * Time.deltaTime);
         }
     }

@@ -125,11 +125,12 @@ namespace RipsBigun
 
             // make sure that the character stays within defined boundaries
             float yBounds = Mathf.Clamp(_newPositionForFrame.y, _yBounds.min, _yBounds.max);
+            float zBounds = Mathf.Clamp(_newPositionForFrame.z, _zBounds.min, _zBounds.max);
 
             _transform.position = new Vector3(
                 _newPositionForFrame.x,
                 yBounds,
-                Mathf.Clamp(_newPositionForFrame.z, _zBounds.min, _zBounds.max)
+                zBounds
             );
         }
 
@@ -158,7 +159,7 @@ namespace RipsBigun
 
         protected void MoveTowards(Vector3 currentPosition, Vector3 target, float speed)
         {
-            Vector3 move = Vector3.MoveTowards(currentPosition, target, speed);
+            Vector3 move = Vector3.Lerp(currentPosition, target, speed);
             _newPositionForFrame = new Vector3(move.x, currentPosition.y, move.z);
             if (!_updatingPositionThisFrame)
             {

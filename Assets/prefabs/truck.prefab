@@ -153,13 +153,12 @@ MonoBehaviour:
   _useGravity: 1
   _giveDamageAmount: 10
   _pointValue: 100
-  _moveSpeed: 2
+  _moveSpeed: 1
   _floatSpeed: 1
   _floatMagnitude: 1
   _gravityValue: -9.8
   _healthBar: {fileID: 0}
   _score: {fileID: 0}
-  _rb: {fileID: 0}
   _animator: {fileID: 265220687282863262}
   _spriteRenderer: {fileID: 8932823037137988416}
   _pooledObject: {fileID: 959115058918190541}

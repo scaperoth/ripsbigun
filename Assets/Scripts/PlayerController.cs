@@ -8,11 +8,15 @@ namespace RipsBigun
         [SerializeField]
         FloatVariable _playerHealth;
         [SerializeField]
-        private float _playerSpeed = 2.0f;
+        private float _xMoveSpeed = 2.0f;
         [SerializeField]
-        private float _playerVeritcalSpeed = 2.0f;
+        private float _zMoveSpeed = 5.0f;
         [SerializeField]
-        private float jumpHeight = 2.0f;
+        private bool _applyGravity = true;
+        [SerializeField]
+        private float _jumpSpeed = 2.0f;
+        [SerializeField]
+        private float _jumpHeight = 2.0f;
         [SerializeField]
         private PooledObject _gunShot;
         [SerializeField]
@@ -28,75 +32,86 @@ namespace RipsBigun
         }
 
         [SerializeField]
-        private float _minZBoundary = -1.5f;
-        [SerializeField]
-        private float _maxZBoundary = 0f;
+        private RestrictedVector3 _levelBounds;
         [SerializeField]
         PlayerEvent _playerHurtEvent;
 
         private SpriteRenderer _spriteRenderer;
         private Animator _animator;
-        private Rigidbody _rb;
         private Transform _transform;
 
         private float _lastShootTime = 0f;
         private float _runBoundary = .7f;
         private bool _isGrounded = false;
         private bool _hurt = false;
+        private bool _jumping = false;
+        private Vector3 _move;
 
         private void Start()
         {
             _transform = transform;
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
-            _rb = GetComponent<Rigidbody>();
         }
 
         void Update()
         {
-            if (_hurt)
+            CheckForGrounded();
+
+            _move = Vector3.zero;
+            if (!_hurt)
             {
-                return;
+                Vector3 inputs = new Vector3(
+                    Input.GetAxis("Horizontal"),
+                    0,
+                    Input.GetAxis("Vertical")
+                );
+
+                _move = inputs;
+
+                HandleGrounded();
+
+                CorrectSpriteOrientation(_move);
+
+                AnimateCharacterMovement(_move);
+
+                HandleShoot();
+
+                _move.x *= _xMoveSpeed;
+                _move.z *= _zMoveSpeed;
+                _move = HandleJump(_move);
             }
 
-            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            _move *= Time.deltaTime;
+            _transform.position = ClampBoundary(_transform.position + _move);
+        }
 
-            HandleGrounded();
-
-            CorrectSpriteOrientation(move);
-
-            AnimateCharacterMovement(move);
-
-            HandleShoot();
-
-            move = HandleJump(move);
-            move.x *= _playerSpeed;
-            move.z *= _playerVeritcalSpeed;
-
-            _rb.velocity = ClampBoundary(move);
+        void CheckForGrounded()
+        {
+            if (Mathf.Approximately(_transform.position.y, _levelBounds.Min.y))
+            {
+                _isGrounded = true;
+            }
+            else
+            {
+                _isGrounded = false;
+            }
         }
 
         Vector3 ClampBoundary(Vector3 move)
         {
-            Vector3 clampedMove = move;
-
-            // boundaries
-            if (_transform.localPosition.z > _maxZBoundary && move.z > 0)
-            {
-                clampedMove.z = 0;
-            }
-
-            if (_transform.localPosition.z < _minZBoundary && move.z < 0)
-            {
-                clampedMove.z = 0;
-            }
+            Vector3 clampedMove = new Vector3(
+                move.x,
+                Mathf.Clamp(move.y, _levelBounds.Min.y, _levelBounds.Max.y),
+                Mathf.Clamp(move.z, _levelBounds.Min.z, _levelBounds.Max.z)
+            );
 
             return clampedMove;
         }
 
         void HandleShoot()
         {
-
+            float time = Time.time;
             //Changes the height position of the player..
             if (Input.GetButtonDown("Fire1"))
             {
@@ -107,15 +122,15 @@ namespace RipsBigun
                 _animator.SetBool("shoot", false);
             }
 
-            if (_lastShootTime + _shootDelay > Time.time)
+            if (_lastShootTime + _shootDelay > time)
             {
                 return;
             }
 
             if (_animator.GetBool("shoot") && _gunShot != null)
             {
-                _lastShootTime = Time.time;
-                Vector3 gunPos = _gunShot.transform.localPosition;
+                _lastShootTime = time;
+                Vector3 gunPos = _gunShot.CachedTransform.localPosition;
                 if (_animator.GetBool("run"))
                 {
                     gunPos += new Vector3(.1f, -.05f, 0f);
@@ -141,17 +156,29 @@ namespace RipsBigun
 
         Vector3 HandleJump(Vector3 move)
         {
-            //Changes the height position of the player..
-            if (Input.GetButtonDown("Jump") && _isGrounded)
+            float clampedJumpHeight = Mathf.Min(_jumpHeight, _levelBounds.Max.y);
+            if (_jumping && _transform.position.y < clampedJumpHeight)
             {
-                move.y = jumpHeight;
-                _animator.SetBool("jump", true);
+                float realSpeed = (1f / _jumpHeight) * _jumpSpeed;
+                float distanceToPeakJump = (clampedJumpHeight - _transform.position.y) + Time.deltaTime;
+                move += new Vector3(0f, _jumpHeight * (realSpeed * distanceToPeakJump), 0);
             }
-            else
+            else if (_transform.position.y >= clampedJumpHeight)
             {
-                move.y = _rb.velocity.y;
+                _jumping = false;
             }
 
+            if (!_jumping && _applyGravity)
+            {
+                move += Vector3.down * 3;
+            }
+
+            //Changes the height position of the player..
+            if (_isGrounded && Input.GetButtonDown("Jump"))
+            {
+                _animator.SetBool("jump", true);
+                _jumping = true;
+            }
             return move;
         }
 
@@ -174,7 +201,7 @@ namespace RipsBigun
         {
             float absHMovement = Mathf.Abs(move.x);
             float absVMovement = Mathf.Abs(move.z);
-            if (_rb.velocity == Vector3.zero || (absHMovement < 0.01 && absVMovement < 0.01))
+            if ((absHMovement < 0.01 && absVMovement < 0.01))
             {
                 _animator.SetBool("run", false);
                 _animator.SetBool("walk", false);
@@ -193,22 +220,6 @@ namespace RipsBigun
             {
                 _animator.SetBool("run", false);
                 _animator.SetBool("walk", true);
-            }
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.name == "FloorPlane")
-            {
-                _isGrounded = true;
-            }
-        }
-
-        private void OnCollisionExit(Collision collision)
-        {
-            if (collision.gameObject.name == "FloorPlane")
-            {
-                _isGrounded = false;
             }
         }
 
@@ -240,7 +251,8 @@ namespace RipsBigun
             {
                 _spriteRenderer.flipX = false;
             }
-            _rb.velocity = new Vector3(-hitSide, _rb.velocity.y, _rb.velocity.z);
+            Vector3 hitreaction = new Vector3(-hitSide, _transform.position.y, _transform.position.z);
+            transform.position = Vector3.MoveTowards(_transform.position, hitreaction, Time.deltaTime);
         }
 
         void TakeDamageFromOther(GameObject other)
