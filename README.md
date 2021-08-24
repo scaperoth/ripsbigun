@@ -3,7 +3,7 @@ Repo for rip's smash-em-up-style game
 
 ## Thanks
 
-Special thanks to artist [ansimuz](https://opengameart.org/users/ansimuz) from [opengameart.org](https://opengameart.org). I used *all* of his things. 
+Special thanks to artist [ansimuz](https://opengameart.org/users/ansimuz) from [opengameart.org](https://opengameart.org). Almost all art in the game are from ansimuz's collection. 
 
 Also, some assets were pulled from [itch.io](https://itch.io) and the free assets that they and their users host/provide.
 
