@@ -6,3 +6,5 @@ Repo for rip's smash-em-up-style game
 - API Compatibility: .NET Standard 2.0
 - Platform: WebGL
 
+![home screen](images/homescreen.gif)
+![game play example](images/gameplay.gif)
